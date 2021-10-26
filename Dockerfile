@@ -23,7 +23,7 @@ ENV PATH="/home/${USERNAME}/.local/bin:/home/${USERNAME}/.cabal/bin:/home/${USER
 RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
-    BOOTSTRAP_HASKELL_NO_UPGRADE=yes
+    BOOTSTRAP_HASKELL_NO_UPGRADE=yes \
     BOOTSTRAP_HASKELL_GHC_VERSION=$GHC_VERSION
 
 # Install ghcup
