@@ -1,0 +1,13 @@
+{
+    "name": "Development container for Intro FP (GHC, Cabal, libs)",
+    "image": "ghcr.io/tritlo/fp-course:latest",
+    "context":"..",
+    "runArgs": [],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "remoteUser": "lambda",
+    "extensions": [
+        "justusadam.language-haskell"
+    ]
+}
