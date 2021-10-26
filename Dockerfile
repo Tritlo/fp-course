@@ -6,7 +6,7 @@ ENV USERNAME=lambda \
     USER_UID=2001 \
     USER_GID=2001 \
     DEBIAN_FRONTEND=noninteractive \
-    GHC_VERSION=${GHC_VERSION}
+    GHC_VERSION=$GHC_VERSION
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential libffi-dev libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
@@ -24,22 +24,23 @@ RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
     BOOTSTRAP_HASKELL_NO_UPGRADE=yes
+    BOOTSTRAP_HASKELL_GHC_VERSION=$GHC_VERSION
 
 # Install ghcup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
 # Check if needed GHC_VERSION was already installed during bootstrap, otherwise - install it.
-RUN echo "Checking, whether GHC(${GHC_VERSION}) is already installed" && \
-    if ghcup list 2>&1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | grep -P "\xE2\x9C\x94\sghc\s+${GHC_VERSION}\s+\w+" ; \
+RUN echo "Checking, whether GHC($GHC_VERSION) is already installed" && \
+    if ghcup list 2>&1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | grep -P "\xE2\x9C\x94\sghc\s+$GHC_VERSION\s+\w+" ; \
     then \
-        echo "GHC ${GHC_VERSION} is already installed via ghcup." ; \
+        echo "GHC $GHC_VERSION is already installed via ghcup." ; \
     else \
-        echo "GHC ${GHC_VERSION} was not found. Installing via ghcup." && \
-        ghcup install ghc ${GHC_VERSION} ; \
+        echo "GHC $GHC_VERSION was not found. Installing via ghcup." && \
+        ghcup install ghc $GHC_VERSION ; \
     fi
 
 # Set the GHC version.
-RUN ghcup set ghc ${GHC_VERSION}
+RUN ghcup set ghc $GHC_VERSION
 
 # Install cabal-iinstall
 RUN ghcup install cabal

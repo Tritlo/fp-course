@@ -1,6 +1,6 @@
 {
     "name": "Development container for Intro FP (GHC, Cabal, libs)",
-    "image": "ghcr.io/tritlo/fp-course:latest",
+    "image": "ghcr.io/tritlo/fp-course:main",
     "context":"..",
     "runArgs": [],
     "settings": {
