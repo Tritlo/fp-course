@@ -41,6 +41,7 @@ RUN ghcup install cabal
 
 # Install global packages.
 RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui hlint
+RUN cabal install hlint
 
 ENV DEBIAN_FRONTEND=dialog
 
