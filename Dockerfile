@@ -43,6 +43,14 @@ RUN ghcup install cabal
 RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui hlint
 RUN cabal install hlint
 
+# Make sure utf-8 works
+RUN apt-get install -y locales locales-all
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LC_ALL en_US.UTF-8 
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+
 ENV DEBIAN_FRONTEND=dialog
 
 ENTRYPOINT ["/bin/bash"]
