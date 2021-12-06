@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'hlint'
+      - 'aeson'
 jobs:
   deploy:
     runs-on: ubuntu-latest
