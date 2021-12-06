@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'hlint'
 jobs:
   deploy:
     runs-on: ubuntu-latest
