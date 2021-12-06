@@ -50,8 +50,8 @@ RUN ghcup set ghc $GHC_VERSION
 RUN ghcup install cabal
 
 # Install global packages.
-RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui hlint aeson
-RUN cabal install hlint
+RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui aeson
+RUN cabal install --jobs=1 hlint
 
 
 ENV DEBIAN_FRONTEND=dialog
