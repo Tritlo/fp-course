@@ -1,6 +1,6 @@
 {
     "name": "Development container for Intro FP (GHC, Cabal, libs)",
-    "image": "ghcr.io/tritlo/fp-course:hlint",
+    "image": "agerdes/introfp:latest",
     "context":"..",
     "runArgs": [],
     "settings": {
@@ -8,7 +8,6 @@
     },
     "remoteUser": "lambda",
     "extensions": [
-        "justusadam.language-haskell",
-        "hoovercj.haskell-linter"
+        "justusadam.language-haskell"
     ]
 }
