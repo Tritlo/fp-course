@@ -1,13 +1,9 @@
 {
     "name": "Development container for Intro FP (GHC, Cabal, libs)",
-    "image": "agerdes/introfp:latest",
-    "context":"..",
-    "runArgs": [],
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
-    "remoteUser": "lambda",
-    "extensions": [
-        "justusadam.language-haskell"
-    ]
-}
+    "image": "agerdes/introfp-slim:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": ["justusadam.language-haskell"]
+      }
+    }
+  }
