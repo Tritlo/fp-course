@@ -1,14 +1,9 @@
 {
     "name": "Development container for Intro FP (GHC, Cabal, libs)",
-    "image": "ghcr.io/tritlo/fp-course:hlint",
-    "context":"..",
-    "runArgs": [],
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
-    "remoteUser": "lambda",
-    "extensions": [
-        "justusadam.language-haskell",
-        "hoovercj.haskell-linter"
-    ]
-}
+    "image": "agerdes/introfp-slim:latest",
+    "customizations": {
+      "vscode": {
+        "extensions": ["justusadam.language-haskell"]
+      }
+    }
+  }

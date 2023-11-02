@@ -1,6 +1,6 @@
 FROM debian:stable
 
-ARG GHC_VERSION=8.10.7
+ARG GHC_VERSION=9.2.8
 
 ENV USERNAME=lambda \
     USER_UID=2001 \
@@ -8,8 +8,8 @@ ENV USERNAME=lambda \
     DEBIAN_FRONTEND=noninteractive \
     GHC_VERSION=$GHC_VERSION
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     git curl xz-utils gcc make libtinfo5 libgmp-dev\
     zlib1g-dev bash sudo procps lsb-release ca-certificates\
     build-essential libffi-dev libgmp-dev libgmp10 libncurses-dev\ 
@@ -34,25 +34,18 @@ RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
     BOOTSTRAP_HASKELL_NO_UPGRADE=yes \
-    BOOTSTRAP_HASKELL_INSTALL_HLS=yes \
+    BOOTSTRAP_HASKELL_INSTALL_HLS=no \
     BOOTSTRAP_HASKELL_GHC_VERSION=$GHC_VERSION
 
 # Install ghcup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
-# Install the specified GHC_VERSION. A No-op if already installed during bootstrap.
-RUN ghcup install ghc $GHC_VERSION
-
-# Set the GHC version.
-RUN ghcup set ghc $GHC_VERSION
-
-# Install cabal-iinstall
-RUN ghcup install cabal
+# Install the specified GHC_VERSION (a No-op if already installed during bootstrap),
+# set the GHC version, and install cabal.
+RUN ghcup install ghc $GHC_VERSION && ghcup set ghc $GHC_VERSION && ghcup install cabal
 
 # Install global packages.
-RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui aeson
-RUN cabal install --jobs=1 hlint
-
+RUN cabal install --global --lib QuickCheck ansi-terminal random threepenny-gui
 
 ENV DEBIAN_FRONTEND=dialog
 
